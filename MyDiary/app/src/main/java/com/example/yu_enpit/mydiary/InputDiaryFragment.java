@@ -1,7 +1,6 @@
 package com.example.yu_enpit.mydiary;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -20,21 +19,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.IOException;
+
 import io.realm.Realm;
-import io.realm.internal.IOException;
 
 import static android.app.Activity.RESULT_OK;
-import static android.icu.lang.UCharacter.JoiningGroup.PE;
+
+//import io.realm.internal.IOException;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link InputDiaryFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link InputDiaryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class InputDiaryFragment extends Fragment {
     private static final String DIARY_ID="DIARY_ID";
     private static final int REQUEST_CODE=1;
@@ -122,9 +115,9 @@ public class InputDiaryFragment extends Fragment {
     private void requestReadStorage(View view){
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
-            if(shouldshowRequestPermissionRationale(
+            if(shouldShowRequestPermissionRationale(
                     Manifest.permission.READ_EXTERNAL_STORAGE)){
-            Snackbar.make(view,R.string.rationale,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view,R.string.rational,Snackbar.LENGTH_LONG).show();
         }
         requestPermissions(new String[]{
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -137,7 +130,7 @@ public class InputDiaryFragment extends Fragment {
         Intent intent=new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
-        startActivityForResults(
+        startActivityForResult(
                 Intent.createChooser(
                                 intent,
                                 getString(R.string.pick_image)
@@ -169,7 +162,7 @@ public class InputDiaryFragment extends Fragment {
         }
     }
     @Override
-    public void onRequestPermissionResult(int requestCode,
+    public void onRequestPermissionsResult(int requestCode,
                                           @NonNull String[] permissions,
                                           @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
