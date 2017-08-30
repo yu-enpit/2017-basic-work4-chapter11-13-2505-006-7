@@ -1,7 +1,9 @@
 package com.example.yu_enpit.mydiary;
 
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,8 +14,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import io.realm.Realm;
-
-import static android.R.attr.format;
 
 public class MainActivity extends AppCompatActivity
     implements DiaryListFragment.OnFragmentInteractionListener{
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mRealm=Realm.getDefaultInstance();
-        createTestData();
+       // createTestData();
         showDiaryList();
     }
     @Override
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onAddDiarySelected(){
         //新規ダイアリー追加処理をここに

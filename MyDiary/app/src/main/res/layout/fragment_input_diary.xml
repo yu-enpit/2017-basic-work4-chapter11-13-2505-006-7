@@ -67,7 +67,7 @@
         <EditText
             android:id="@+id/bodyEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="hint" />
+            android:layout_height="wrap_content"
+            android:hint="本文" />
     </android.support.design.widget.TextInputLayout>
 </android.support.constraint.ConstraintLayout>

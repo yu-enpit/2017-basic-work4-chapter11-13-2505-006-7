@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -87,12 +88,14 @@ public class InputDiaryFragment extends Fragment {
             public void afterTextChanged(final Editable s){
                 mRealm.executeTransactionAsync(new Realm.Transaction(){
                     @Override
-                    public void execute(Realm realm){
-                        Diary diary=realm.where(Diary.class).equalTo("id",mDiaryId).findFirst();
+                    public void execute(Realm realm) {
+                        Diary diary = realm.where(Diary.class).equalTo("id", mDiaryId).findFirst();
+                        diary.title = s.toString();
                     }
                 });
             }
         });
+
         mBodyEdit.addTextChangedListener(new TextWatcher(){
             @Override
             public void beforeTextChanged(CharSequence s,int start,int count,int after){}
@@ -156,6 +159,12 @@ public class InputDiaryFragment extends Fragment {
                         Diary diary=realm.where(Diary.class)
                                 .equalTo("id",mDiaryId)
                                 .findFirst();
+                        BitmapDrawable bitmap=
+                                (BitmapDrawable)mDiaryImage.getDrawable();
+                        byte[] bytes=MyUtils.getByteFromImage(bitmap.getBitmap());
+                        if(bytes!=null&&bytes.length>0){
+                            diary.image=bytes;
+                        }
                     }
                 });
             }
